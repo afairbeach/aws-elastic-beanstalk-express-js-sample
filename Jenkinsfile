@@ -11,7 +11,6 @@ pipeline {
 
   options {
     timestamps()
-    ansiColor('xterm')
     buildDiscarder(logRotator(daysToKeepStr: '14', numToKeepStr: '25'))
   }
 
