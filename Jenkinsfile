@@ -3,7 +3,7 @@ pipeline {
 
   parameters {
     string(name: 'DOCKER_REPO',
-           defaultValue: 'yourdockerhubuser/aws-eb-express-sample',
+           defaultValue: 'qifengbi/aws-eb-express-sample',
            description: 'Docker Hub repo: user/repo')
     booleanParam(name: 'ENABLE_SNYK', defaultValue: false,
                  description: 'Use Snyk in addition to npm audit')
@@ -81,6 +81,9 @@ pipeline {
     stage('Push Image') {
       environment { DOCKERHUB = credentials('DOCKERHUB_CREDENTIALS') }
       steps {
+        withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_CREDENTIALS',
+                                         usernameVariable: 'DOCKERHUB_USR',
+                                         passwordVariable: 'DOCKERHUB_PSW')])
         sh '''
           echo "${DOCKERHUB_PSW}" | docker login -u "${DOCKERHUB_USR}" --password-stdin
           docker push "${IMAGE_TAG}"
