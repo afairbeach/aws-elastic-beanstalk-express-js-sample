@@ -103,11 +103,6 @@ pipeline {
     }
   }
 
-    stage('Publish Reports') {
-    steps {
-        recordIssues(tools: [sarif(pattern: '**/*.sarif')])
-    }
-    }
 
   post {
     success { echo "✅ Success. Pushed: ${IMAGE_TAG}" }
