@@ -1,17 +1,54 @@
 {
-  "name": "aws-elastic-beanstalk-express-js-sample",
-  "version": "1.0.0",
-  "description": "Sample Node.js (Express) app for AWS Elastic Beanstalk",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js"
+  "name": "express-es6-sample",
+  "version": "0.2.0",
+  "private": true,
+  "author": {
+    "name": "Jonathan Cunanan",
+    "url": "https://github.com/jcunanan05"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aws-samples/aws-elastic-beanstalk-express-js-sample.git"
-  },
-  "license": "MIT-0",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.21.2"
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.2",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ],
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "start": "npm run prod",
+    "build": "npm run clean && npm run transpile",
+    "server": "node ./dist-server/bin/www",
+    "dev": "NODE_ENV=development npm run server",
+    "prod": "NODE_ENV=production npm run server",
+    "transpile": "babel ./server --out-dir dist-server",
+    "clean": "rm -rf dist-server",
+    "watch:dev": "nodemon",
+    "test": "jest"
   }
 }
